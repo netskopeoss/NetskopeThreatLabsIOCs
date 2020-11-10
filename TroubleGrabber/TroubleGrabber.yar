@@ -2,7 +2,7 @@ rule TroubleGrabber_PWS
 {
     meta:
         
-		info = "TroubleGrabber is a malware that uses Discord webhooks to communicate stolen credentials back to the attacker"
+		info = "TroubleGrabber is a credential stealer that is being spread through Discord attachments and using Discord messages to communicate stolen credentials back to the attacker"
     strings:
 		$a1 = "TOKEN_STEALER_CREATOR.Properties"
 		$a2 = "discordapp.com/attachments/"  nocase wide ascii
@@ -14,7 +14,7 @@ rule TroubleGrabber_Sendhookfile
 {
     meta:
         
-		info = "TroubleGrabber is a malware that uses Discord webhooks to communicate stolen credentials back to the attacker"
+		info = "TroubleGrabber is a credential stealer that is being spread through Discord attachments and using Discord messages to communicate stolen credentials back to the attacker"
     strings:
 		$a1 = "sendhookfile.Properties"  nocase wide ascii
 		$a2 = "TokenStealer"  nocase wide ascii
@@ -27,7 +27,7 @@ rule TroubleGrabber_TokenStealer
 {
     meta:
         
-		info = "TroubleGrabber is a malware that uses Discord webhooks to communicate stolen credentials back to the attacker"
+		info = "TroubleGrabber is a credential stealer that is being spread through Discord attachments and using Discord messages to communicate stolen credentials back to the attacker"
     strings:
 		$a1 = "**INJECTION STARTED!**"  nocase wide ascii
 		$a2 = "systeminfo | findstr"  nocase wide ascii
