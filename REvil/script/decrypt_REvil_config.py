@@ -51,7 +51,7 @@ def decrypt_config(file_path: str):
     if len(pe.sections) < 4:
         return None
 
-    # The encrypted data is within the third section of the binary
+    # The encrypted data is within the fourth section of the binary
     section_data = pe.sections[3].get_data()
 
     # The 4 bytes at 0x24 indicates the length of the encrypted data
