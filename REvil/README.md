@@ -4,6 +4,7 @@ The REvil ransomware (a.k.a Sodinokibi) is a threat group that operates in the R
 In this repository, you will find:
 
 ### IOCs
+* **REvil_domains.txt**: domains from the files analyzed in the blog post, from Kaseya's incident.
 * **REvil_hashes.txt**: sha256 hashes from the files analyzed in the blog post, from Kaseya's incident.
 * **REvil_decrypted_config.json**: Decrypted configuration from the REvil unpacked payload.
 
@@ -17,4 +18,3 @@ This is a small tool Netskope Threat Labs is releasing to help anyone that needs
 ```
 
 The decrypted configuration will be saved in the same path as the payload, as "decrypted.json"
-
