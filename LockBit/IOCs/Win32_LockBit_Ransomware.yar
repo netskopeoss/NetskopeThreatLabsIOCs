@@ -5,10 +5,21 @@ rule Win32_LockBit_Ransomware
         author = "Netskope Research Team"
 
     strings:
-        $str00 = "Service %s stopped"
-        $str01 = "SOFTWARE\\LockBit"
-        $str02 = "All your important files are encrypted"
-        $str03 = "Download Tor browser"
+        $v1_00 = "Service %s stopped"
+        $v1_01 = "SOFTWARE\\LockBit"
+        $v1_02 = "All your important files are encrypted"
+        $v1_03 = "Download Tor browser"
+
+        $v2_lb = "LockBit" wide nocase fullword
+        $v2_00 = "Elevation:Administrator" wide nocase
+        $v2_01 = "gpupdate" wide nocase
+        $v2_02 = "LDAP://" wide nocase
+        $v2_03 = "NETLOGON" wide nocase
+        $v2_04 = "powershell.exe" wide nocase
+        $v2_05 = "Microsoft XPS Document Writer" wide nocase
+        $v2_06 = "RESTORE-MY-FILES.TXT" wide nocase
+        $v2_07 = "ToxID" wide nocase
+        $v2_08 = "mshta.exe" wide nocase
 
         $svc00 = "sophos"
         $svc01 = "veeam"
@@ -41,6 +52,9 @@ rule Win32_LockBit_Ransomware
         $cmd08 = "/c wevtutil cl application"
 
     condition:
-        uint16(0) == 0x5a4d and
-        all of ($str*) and 10 of ($svc*) and 5 of ($cmd*)
+        uint16(0) == 0x5a4d
+		and (
+			(all of ($v1_*) and 5 of ($svc*) and 3 of ($cmd*)) or
+			($v2_lb and 4 of ($v2_0*))
+		)
 }
