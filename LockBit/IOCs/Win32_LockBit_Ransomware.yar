@@ -10,16 +10,16 @@ rule Win32_LockBit_Ransomware
         $v1_02 = "All your important files are encrypted"
         $v1_03 = "Download Tor browser"
 
-		$v2_lb = "LockBit" wide nocase fullword
-		$v2_00 = "Elevation:Administrator" wide nocase
-		$v2_01 = "gpupdate" wide nocase
-		$v2_02 = "LDAP://" wide nocase
-		$v2_03 = "NETLOGON" wide nocase
-		$v2_04 = "powershell.exe" wide nocase
-		$v2_05 = "Microsoft XPS Document Writer" wide nocase
-		$v2_06 = "RESTORE-MY-FILES.TXT" wide nocase
-		$v2_07 = "ToxID" wide nocase
-		$v2_08 = "mshta.exe" wide nocase
+        $v2_lb = "LockBit" wide nocase fullword
+        $v2_00 = "Elevation:Administrator" wide nocase
+        $v2_01 = "gpupdate" wide nocase
+        $v2_02 = "LDAP://" wide nocase
+        $v2_03 = "NETLOGON" wide nocase
+        $v2_04 = "powershell.exe" wide nocase
+        $v2_05 = "Microsoft XPS Document Writer" wide nocase
+        $v2_06 = "RESTORE-MY-FILES.TXT" wide nocase
+        $v2_07 = "ToxID" wide nocase
+        $v2_08 = "mshta.exe" wide nocase
 
         $svc00 = "sophos"
         $svc01 = "veeam"
