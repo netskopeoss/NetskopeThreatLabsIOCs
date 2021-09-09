@@ -1,7 +1,7 @@
 rule Win32_Ransomware_Hive
 {
 	meta:
-		description = "Detects 32-bit Hive Ransomware"
+		description = "Detects unpacked 32-bit Hive Ransomware"
 		author = "Netskope Research Team"
 
 	strings:
