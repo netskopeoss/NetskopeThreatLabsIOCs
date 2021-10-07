@@ -2,7 +2,7 @@ rule Win32_Olympics_Wiper
 {
     meta:
         description = "Detects wiper malware found during the Tokyo 2021 Olympics"
-        author = "Netskope Research Team"
+        author = "Netskope Threat Labs"
 
     strings:
         $str01 = "\\\\.\\Global\\ProcmonDebugLogger"

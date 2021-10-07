@@ -2,7 +2,7 @@ rule Win32_LockBit_Ransomware
 {
     meta:
         description = "Detects the Lockbit Ransomware"
-        author = "Netskope Research Team"
+        author = "Netskope Threat Labs"
 
     strings:
         $v1_00 = "Service %s stopped"
