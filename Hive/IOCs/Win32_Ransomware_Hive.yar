@@ -2,7 +2,7 @@ rule Win32_Ransomware_Hive
 {
 	meta:
 		description = "Detects unpacked 32-bit Hive Ransomware"
-		author = "Netskope Research Team"
+		author = "Netskope Threat Labs"
 
 	strings:
 		$go = "GO build" nocase

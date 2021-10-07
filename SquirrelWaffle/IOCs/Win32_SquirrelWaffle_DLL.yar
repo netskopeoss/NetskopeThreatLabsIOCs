@@ -2,7 +2,7 @@ rule Win32_SquirrelWaffle_DLL
 {
 	meta:
 		description = "Detects unpacked 32-bit SquirrelWaffle"
-		author = "Netskope Research Team"
+		author = "Netskope Threat Labs"
 
 	strings:
 		$pdb = "C:\\Users\\Administrator\\source\\repos\\Dll1\\Release\\Dll1.pdb"

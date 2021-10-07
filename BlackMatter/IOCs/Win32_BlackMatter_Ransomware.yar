@@ -5,7 +5,7 @@ rule Win32_BlackMatter_Ransomware
 {
     meta:
         description = "Detects the BlackMatter Ransomware"
-        author = "Netskope Research Team"
+        author = "Netskope Threat Labs"
 
     strings:
         $asm00 = { b8 ?? ?? ?? ?? 35 ?? ?? ?? ?? 50 e8 ?? ?? ?? ??  }
