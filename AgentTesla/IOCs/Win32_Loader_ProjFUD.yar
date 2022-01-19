@@ -1,0 +1,28 @@
+rule Win32_Loader_ProjFUD
+{
+	meta:
+		description = "Identifies a .NET Loader known as projFUD / alosh_rat"
+		author = "Netskope Threat Labs"
+
+	strings:
+		$str00 = "projFUD"
+		$str01 = "Execute"
+		$str02 = "payload"
+		$str03 = "GetProcessById"
+
+		// kernel32
+		$bin00 = "0011001000110011011011000110010101101110011100100110010101101011" wide
+
+		//ntdll
+		$bin01 = "0110110001101100011001000111010001101110" wide
+
+		// ResumeThread
+		$bin02 = "011001000110000101100101011100100110100001010100011001010110110101110101011100110110010101010010" wide
+
+		// ReadProcessMemory
+		$bin03 = "0111100101110010011011110110110101100101010011010111001101110011011001010110001101101111011100100101000001100100011000010110010101010010" wide
+
+	condition:
+		uint16(0) == 0x5a4d
+		and all of ($str*) and 1 of ($bin*)
+}
