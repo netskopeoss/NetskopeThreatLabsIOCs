@@ -28,6 +28,7 @@ hxxps://cdn.discordapp[.]com/attachments/928503440139771947/930108637681184768/T
 * **Created Files**
 ```text
 %TEMP%\InstallUtil.exe
+%TEMP%\AdvancedRun.exe
 %TEMP%\Nmddfrqqrbyjeygggda.vbs
 ```
 
