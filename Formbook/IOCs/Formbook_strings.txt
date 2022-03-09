@@ -1,0 +1,106 @@
+Firefox
+NT\CurrentVersion
+Recovery
+x64
+x86
+.dll
+.exe
+.sqlite
+.zip
+00.ini
+200 OK
+2008
+2012
+2016
+[<-Del]
+[Enter]
+[Esc]
+[System]
+[Tab]
+\Cookies
+\Current Session
+\DB1
+\explorer.exe
+\Firefox
+\INetCookies
+\Low
+\Main
+\Microsoft\Windows
+\Opera Software\Opera Stable\Login Data
+_2016\
+__Vault
+Windows Explorer
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+API-
+Aut:
+auth
+browser
+Chrome
+chrome_child.dll
+cl.ini
+Clipboard
+CurrentVersion
+DEST
+encrypted_key
+FBIMG
+FBNG:
+Firefox\
+guid
+Host:
+hostname
+HttpOpenRequestA
+httpRealm
+HttpSendRequestA
+Id:
+Iexplor
+im.jpeg
+image/jpeg
+image/png
+Install Directory
+Internet Explorer\IntelliForms\Storage2
+InternetCloseHandle
+InternetConnectA
+InternetOpenA
+InternetReadFile
+Local State
+log.ini
+login
+MS-WAPI-
+Name:
+NrZl
+open
+Opera
+Outlook Recovery
+pass
+Pass:
+Password
+PATH
+Port:
+POST
+ProductName
+profiles.ini
+Program Files
+ProgramFiles
+rc.ini
+rg.ini
+ri.ini
+rv.ini
+Server:
+Sniff from:
+Thunderbird\
+U33f
+Unknown
+URL:
+Url:
+urlmon.dll
+user
+User :
+User-Agent:
+User:
+USERNAME
+V22dN::t
+version.dll
+windir
+Windows Explorer
+wininet.dll
+www.
