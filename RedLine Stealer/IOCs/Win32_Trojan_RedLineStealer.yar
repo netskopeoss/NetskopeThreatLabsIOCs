@@ -1,9 +1,9 @@
 import "pe"
 
-rule RedLine_Loader
+rule Win32_Trojan_Packed_RedLineStealer
 {
     meta:
-        description = "Identifies RedLine Stealer samples"
+        description = "Identifies a loader used to deploy RedLine Stealer"
         author = "Netskope Threat Labs"
         reference = "4d77e265722624b5d4d1841d45c7c677"
 
@@ -25,7 +25,7 @@ rule RedLine_Loader
         and 1 of ($asm*)
 }
 
-rule RedLine
+rule Win32_Trojan_RedLineStealer
 {
     meta:
         description = "Identifies RedLine Stealer samples"
