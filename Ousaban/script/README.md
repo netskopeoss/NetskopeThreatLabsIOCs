@@ -44,16 +44,8 @@ You can also add "--print" to show the decrypted strings in the console.
 
 [+] Decrypted strings:
 
-Foxbit
 DwmEnableComposition
-BitCoinTrade
-Banco Daycoval
-Conta Simples
 Avast Secure Browser
-Bradesco
-BS2 Empresas
-superdigital
-Banco BS2
-Gerencianet
 mozilla firefox
+...
 ```
