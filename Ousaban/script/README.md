@@ -24,7 +24,7 @@ You can decrypt a single string:
 
 [+] Decrypting D354F436FD2A1322EB3DF950CA658ACA62
 
-Banco Rendimento
+Banco <REDACTED>
 ```
 
 Or multiple strings, saved in a file and separated by new line ("\n")
