@@ -1,0 +1,54 @@
+### Scripts
+
+Netskope Threat Labs is releasing this small tool to help anyone that needs help decrypting AsyncRAT strings.
+
+**1. decrypt_strings.py**
+
+This script can be used to decrypt strings found in AsyncRAT samples.
+
+Make sure to install the requirements.
+
+```shell
+(venv) pip install -r requirements.txt
+```
+
+You can decrypt a single string:
+
+```shell
+(venv) python3 decrypt_strings.py --password QUc5ZnhrcllJYklxWk5CZkFXSTQ3c0dneTEwelo2MUs= --salt v+seVvvNlzuyGQIkMKV4QwA9VkTSHmK51PGA5+bDOUE= --string e/vx0EhMVlMcRhhUHlsMiDDWT0sinkClw/YsJCie0kf/hr6I8IkdEe1FimrApxZCGq/9+qKuK03N9rJN77YZhw==
+
+[+] Decrypting e/vx0EhMVlMcRhhUHlsMiDDWT0sinkClw/YsJCie0kf/hr6I8IkdEe1FimrApxZCGq/9+qKuK03N9rJN77YZhw==
+
+6666
+```
+
+Or multiple strings, saved in a file and separated by new line ("\n")
+
+```shell
+(venv) python3 decrypt_strings.py --password QUc5ZnhrcllJYklxWk5CZkFXSTQ3c0dneTEwelo2MUs= --salt v+seVvvNlzuyGQIkMKV4QwA9VkTSHmK51PGA5+bDOUE= --strings /tmp/strings.txt
+
+[+] Decrypted strings saved at: /tmp/strings.txt_decrypted.json
+```
+
+You can also add "--print" to show the decrypted strings in the console.
+
+```shell
+(venv) python3 decrypt_strings.py --password QUc5ZnhrcllJYklxWk5CZkFXSTQ3c0dneTEwelo2MUs= --salt v+seVvvNlzuyGQIkMKV4QwA9VkTSHmK51PGA5+bDOUE= --strings /tmp/strings.txt --print
+
+[+] Decrypted strings saved at: /tmp/strings.txt_decrypted.json
+
+[+] Decrypted strings:
+
+6666
+bashamed[.]org
+| Edit 3LOSH RAT
+false
+AsyncMutex_6SI8OkPnk
+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
+false
+null
+false
+Default
+...
+```
