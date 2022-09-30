@@ -1,8 +1,18 @@
 # RedLine Stealer
-This folder contains data about a RedLine Stealer campaign found by Netskope Threat Labs in April 2022, spreading through YouTube videos and abusing GitHub to retrieve the payloads. 
+RedLine Stealer is a malware that emerged in 2020, discovered in underground forums being sold in different plans, starting from $100 per month. The malware offers many capabilities for device reconnaissance, remote control, and information stealing.
 
 In this repository, you will find:
 
-### IOCs
-* **README.md**: All the IOCs related to the RedLine Stealer campaign.
+## Campaigns Analyzed by Netskope
+
+### 2022-05-12/
+
+* **README.md**: All the IOCs related to a RedLine Stealer campaign analyzed in [May, 2022](https://www.netskope.com/blog/redline-stealer-campaign-using-binance-mystery-box-videos-to-spread-github-hosted-payload).
+
+### 2022-09-30/
+
+* **README.md**: All the IOCs related to a RedLine Stealer campaign analyzed in [Sep, 2022](https://netskope.com/blog/redline-stealer-pdf-phishing-campaign).
+
+### Yara Rules
+
 * **Win32_Trojan_RedLineStealer.yar**: Yara rules to identify packed and unpacked RedLine Stealer samples.
