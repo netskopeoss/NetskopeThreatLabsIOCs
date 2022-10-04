@@ -3,6 +3,9 @@ AsyncRAT is an open-source Remote Administration Tool released on GitHub in Janu
 
 In this repository, you will find:
 
-### Folders
-* **IOCs**: All the IOCs related to the AsyncRAT sample analyzed by Netskope.
-* **Script**: All the scripts we created during the AsyncRAT analysis.
+### IOCs
+* **README.md**: All the IOCs related to the AsyncRAT sample analyzed by Netskope.
+
+### Scripts
+* **README.md**: How to use the scripts we released
+* **decrypt_strings.py**: Script that can be used to decrypt strings found in AsyncRAT samples.

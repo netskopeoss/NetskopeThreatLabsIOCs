@@ -1,10 +1,12 @@
 # Night Sky
-Night Sky is a ransomware family [spotted](https://twitter.com/malwrhunterteam/status/1477381209147723788) in January 1st, 2022.  It appears to work in the RaaS (Ransomware-as-a-Service) model, such as other ransomware groups like REvil, LockBit, and Hive.
+Night Sky is a ransomware family spotted in January 1st, 2022.  It appears to work in the RaaS (Ransomware-as-a-Service) model, such as other ransomware groups like REvil, LockBit, and Hive. [Details](https://www.netskope.com/blog/netskope-threat-coverage-night-sky).
 
 In this repository, you will find:
 
 ### IOCs
 * **README.md**: All IOCs from Night Sky samples analyzed by Netskope Threat Labs
+
+### Yara
 * **Win64_Ransomware_NightSky**: Yara rule to identify unpacked Night Sky ransomware
 
 ### Code

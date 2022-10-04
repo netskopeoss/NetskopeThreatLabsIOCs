@@ -14,7 +14,7 @@
 
 ## RedLine Stealer
 
-These are the IOCs of the latest version of the PDF file, as we [mentioned](https://netskope.com/blog/redline-stealer-pdf-phishing-campaign) in our blog post.
+These are the IOCs of the latest version of the PDF file, as we [mentioned](https://www.netskope.com/blog/redline-stealer-campaign-abusing-discord-via-pdf-links) in our blog post.
 
 * **Downloaded Files (MD5)**
 ```text
@@ -39,7 +39,7 @@ hxxps://cdn.discordapp[.]com/attachments/993279568368644219/1021169437837111346/
 
 ## NjRAT and PureCrypter
 
-As we [described](https://netskope.com/blog/redline-stealer-pdf-phishing-campaign) in our blog post, we found other URLs in the same PDF file by analyzing the update history, which were delivering other malware.
+As we [described](https://www.netskope.com/blog/redline-stealer-campaign-abusing-discord-via-pdf-links) in our blog post, we found other URLs in the same PDF file by analyzing the update history, which were delivering other malware.
 
 * **Files Downloaded From Discord (MD5)**
 ```text
