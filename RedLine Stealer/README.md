@@ -11,7 +11,7 @@ In this repository, you will find:
 
 ### 2022-09-30/
 
-* **README.md**: All the IOCs related to a RedLine Stealer campaign analyzed in [Sep, 2022](https://netskope.com/blog/redline-stealer-pdf-phishing-campaign).
+* **README.md**: All the IOCs related to a RedLine Stealer campaign analyzed in [Sep, 2022](https://www.netskope.com/blog/redline-stealer-campaign-abusing-discord-via-pdf-links).
 
 ### Yara Rules
 
