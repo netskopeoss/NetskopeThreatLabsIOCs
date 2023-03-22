@@ -3,6 +3,10 @@ At the beginning of 2021, Emotet was considered to be the world's most dangerous
 
 ## Campaigns Analyzed by Netskope
 
+### 2023-03-22/
+
+* **README.md**: All the IOCs related to the Emotet analysis published at [Mar, 2023](https://www.netskope.com/blog/emotet-comeback-new-campaign-using-binary-padding-to-evade-detection)
+
 ### 2022-06-24/
 
 * **README.md**: All the IOCs related to an Emotet campaign analyzed in [Jun, 2022](https://www.netskope.com/blog/emotet-still-abusing-microsoft-office-macros).
