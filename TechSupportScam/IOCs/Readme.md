@@ -1,5 +1,4 @@
 ## IOCs
-
 __Domains__:
 ```text
 a4a2r9q8[.]stackpathcdn[.]com
