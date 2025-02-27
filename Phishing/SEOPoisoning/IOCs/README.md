@@ -19,7 +19,6 @@ hxxps://1c896d37-30d1-4b4d-9537-98f963aae812.filesusr[.]com/ugd/865d50_a8f4acca4
 hxxps://1c514d3f-4aca-4c14-a2cc-94ef866bc6c7.filesusr[.]com/ugd/860217_2f62286704994796b92bad2685e9ae5a.pdf
 hxxps://18e7ef82-5c75-44fe-ae22-4c356c2c9ce0.filesusr[.]com/ugd/749e61_433cb70fbd7344cdb04af161d846175e.pdf
 hxxps://189c2d36-84ff-4b81-9465-96c33c1d3b91.filesusr[.]com/ugd/35ddae_b08d9e70005c44b7af448884f58c525d.pdf
-hxxps://185.33.116.145/~acus01/upload/files/pitagalaxikorewajeketubeb.pdf
 hxxps://14535e1a-360a-4d01-a655-fa33e115c80e.filesusr[.]com/ugd/b222ea_7cf20354f53d417698fd8e10a74f0cd2.pdf
 hxxps://12c48f50-3553-44c7-a31c-19fc5df83d07.filesusr[.]com/ugd/7e0eb0_9e2a7ed7749f440db51095e9184cf6e8.pdf
 hxxps://08202b68-adf4-4b7d-bb06-fcebe54c78b8.filesusr[.]com/ugd/76dd3d_5bad8f03e16949259c0ab217d971bb15.pdf
