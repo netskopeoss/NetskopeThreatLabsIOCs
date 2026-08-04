@@ -1,6 +1,6 @@
 # FakeCaptcha PDF TDS
 
-Netskope Threat Labs is tracking a Traffic Distribution System (TDS) campaign that uses fake CAPTCHA PDF lures to funnel victims through a multi-stage pipeline: SEO-poisoned PDF documents with fake CAPTCHA verifiers, a TDS gate that routes traffic to scam or malware-distribution endpoints, premium-SMS subscription traps, and ultimately Legion Loader / Injuke dropper delivery. The campaign operates across two PDF clusters (2025 and 2026) identified by shared structural fingerprints (TLSH/vhash), with lure domains registered via Namecheap and rotated through DGA-style subdomains.
+Netskope Threat Labs is tracking a Traffic Distribution System (TDS) campaign that uses fake CAPTCHA PDF lures to funnel victims through a multi-stage pipeline: SEO-poisoned PDF documents with fake CAPTCHA verifiers, a TDS gate that routes traffic to scam or malware-distribution endpoints, premium-SMS subscription traps, and ultimately Legion Loader / Injuke dropper delivery. The campaign operates across two PDF clusters (2025 and 2026) identified by shared structural fingerprints (TLSH/vhash), with lure domains registered via Namecheap and rotated through DGA-style subdomains. [Details in Netskope Threat Labs blog post](https://www.netskope.com/blog/fake-captcha-real-business-traffic-distribution-for-hire).
 
 ## Campaign Flow
 - User searches Google (or AI assistant) → clicks poisoned result → browser downloads PDF from Webflow CDN
