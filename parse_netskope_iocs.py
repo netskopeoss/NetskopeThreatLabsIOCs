@@ -438,9 +438,29 @@ def extract_readme(readme: Path) -> list[IOC]:
     return indicators
 
 
+def existing_dates(output: Path) -> dict[tuple[str, str, str], str]:
+    """Index dates from an existing generated CSV by type, value, and source."""
+    if not output.is_file():
+        return {}
+
+    with output.open(encoding="utf-8", newline="") as handle:
+        reader = csv.DictReader(handle)
+        if tuple(reader.fieldnames or ()) != CSV_FIELDS:
+            raise ValueError(f"unexpected CSV fields in {output}")
+        return {
+            (
+                row["IOC_type"],
+                row["Value"],
+                row["Confidence_Additional_info"],
+            ): row["Last_modified_date"]
+            for row in reader
+        }
+
+
 def write_csv(readmes: list[Path], root: Path, output: Path) -> int:
-    """Write the requested CSV schema and return the number of rows."""
+    """Regenerate the CSV, retaining dates for indicators already present."""
     run_date = datetime.now().astimezone().date().isoformat()
+    previous_dates = existing_dates(output)
     row_count = 0
 
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -451,13 +471,14 @@ def write_csv(readmes: list[Path], root: Path, output: Path) -> int:
         for readme in readmes:
             additional_info = confidence_info(readme, root)
             for indicator in extract_readme(readme):
+                key = (indicator.ioc_type, indicator.value, additional_info)
                 writer.writerow(
                     {
                         "IOC_type": indicator.ioc_type,
                         "Value": indicator.value,
                         "Source_feed": SOURCE_FEED,
                         "Confidence_Additional_info": additional_info,
-                        "Last_modified_date": run_date,
+                        "Last_modified_date": previous_dates.get(key, run_date),
                     }
                 )
                 row_count += 1
@@ -488,7 +509,7 @@ def main() -> int:
     try:
         readmes = find_ioc_readmes(root)
         row_count = write_csv(readmes, root, output)
-    except OSError as exc:
+    except (OSError, ValueError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
 
