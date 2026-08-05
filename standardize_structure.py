@@ -5,30 +5,39 @@ standardize_structure.py
 Standardizes the folder layout of the Netskope Malware IOC repository so that
 IOC data can be parsed consistently.
 
-Observed inconsistencies handled:
-  1. IOC folder casing/spelling: "IoC" (Doge Ransomware) -> renamed to "IOCs".
-  2. Campaign date folders living at the family root (e.g. Emotet/2021-11-18,
-     RedLine Stealer/2022-05-12) -> moved under an "IOCs/<date>/" subfolder.
-  3. Date folders already nested inside IOCs (XWorm, Python Nodestealer) -> left
-     as-is (already conformant).
-  4. Families with no IOC data at all (e.g. Dirtyfrag) -> reported, left untouched.
+Detection is content-based, not name-based: a README is considered IOC data if
+its fenced code blocks contain genuine indicators (hashes / IPs / domains /
+URLs / emails). Folder names ("IoC", "IOCs", date folders, etc.) are NOT used
+to decide what holds IOCs -- the same detection logic as parse_iocs.py is used.
 
-After running, every family that has IOC data will expose it beneath an "IOCs/"
-folder, either directly (IOCs/README.md and/or data files) or in dated
-subfolders (IOCs/<YYYY-MM-DD>/README.md).
+What it does, per malware family:
+  * Finds every README that actually contains IOC data.
+  * Ensures each such README lives under the family's "IOCs/" folder:
+      - README directly at family root      -> IOCs/README.md
+      - README in a campaign subfolder <x>  -> IOCs/<x>/README.md
+    (a README already under IOCs/ is left alone).
+  * Moves ONLY the IOC README. Everything else (Scripts/, Yara/, Code/, data
+    files, non-IOC READMEs) is left untouched where it is.
+
+Auxiliary folders (those containing code files: .py/.yar/.cpp/...) are never
+treated as IOC sources, so an example-output block in a Scripts README is not
+mistaken for IOC data.
 
 Usage:
     python3 standardize_structure.py            # dry run (default, no changes)
-    python3 standardize_structure.py --apply    # actually rename/move
+    python3 standardize_structure.py --apply    # actually move READMEs
 """
 
 from __future__ import annotations
 
 import argparse
-import re
 import shutil
 import sys
 from pathlib import Path
+
+# Reuse the parser's content-based detection so both scripts agree on what an
+# IOC README is and which folders are auxiliary.
+from parse_iocs import is_auxiliary_dir, readme_contains_iocs
 
 # Root of the malware families relative to this script.
 MALWARE_ROOT = Path(__file__).resolve().parent / "Malware"
@@ -36,80 +45,105 @@ MALWARE_ROOT = Path(__file__).resolve().parent / "Malware"
 # Canonical name for the IOC folder.
 CANONICAL_IOC_DIR = "IOCs"
 
-# Case-insensitive match for any IOC folder variant: IOC, IOCs, IoC, iocs, ...
-IOC_DIR_RE = re.compile(r"^ioc[s]?$", re.IGNORECASE)
-
-# Campaign date folder, e.g. 2021-11-18.
-DATE_DIR_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-
-# Auxiliary (non-IOC) sibling folders that should never be treated as IOC data.
-AUX_DIRS = {"scripts", "yara", "code"}
-
 
 class Action:
-    """A single planned filesystem change, for dry-run reporting and applying."""
+    """A single planned README move, for dry-run reporting and applying."""
 
-    def __init__(self, kind: str, src: Path, dst: Path):
-        self.kind = kind  # "rename" or "move"
+    def __init__(self, src: Path, dst: Path):
         self.src = src
         self.dst = dst
 
     def describe(self, root: Path) -> str:
         rel_src = self.src.relative_to(root)
         rel_dst = self.dst.relative_to(root)
-        return f"[{self.kind}] {rel_src}  ->  {rel_dst}"
+        return f"[move] {rel_src}  ->  {rel_dst}"
 
     def apply(self) -> None:
         self.dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.move(str(self.src), str(self.dst))
 
 
-def plan_family(family_dir: Path, root: Path) -> tuple[list[Action], list[str]]:
+def find_ioc_readmes(family_dir: Path) -> list[Path]:
+    """
+    Return every README under a family that contains genuine IOC data.
+
+    Auxiliary (code-bearing) folders are skipped entirely, so their example
+    output is never mistaken for indicators.
+    """
+    readmes: list[Path] = []
+
+    def walk(directory: Path) -> None:
+        if is_auxiliary_dir(directory):
+            return
+        for child in sorted(directory.iterdir()):
+            if child.is_dir():
+                walk(child)
+            elif child.is_file() and child.name.lower() == "readme.md":
+                if readme_contains_iocs(child):
+                    readmes.append(child)
+
+    walk(family_dir)
+    return readmes
+
+
+def ioc_target_for(readme: Path, family_dir: Path) -> Path:
+    """
+    Compute where an IOC README should live under the family's IOCs/ folder,
+    preserving any intermediate campaign subfolder name (e.g. a date).
+
+    Examples (family = Emotet):
+      Emotet/README.md                 -> Emotet/IOCs/README.md
+      Emotet/2021-11-18/README.md      -> Emotet/IOCs/2021-11-18/README.md
+      Emotet/IOCs/2021-11-18/README.md -> unchanged (already under IOCs/)
+    """
+    ioc_root = family_dir / CANONICAL_IOC_DIR
+    rel = readme.relative_to(family_dir)          # e.g. 2021-11-18/README.md
+    parts = rel.parts
+
+    # Already under an IOC folder (any casing)? Leave it where it is.
+    if parts and parts[0].lower() in {"ioc", "iocs"}:
+        return readme
+
+    if len(parts) == 1:
+        # README.md directly at family root.
+        return ioc_root / "README.md"
+
+    # README.md inside one or more subfolders -> keep the subfolder path.
+    return ioc_root / rel
+
+
+def plan_family(family_dir: Path) -> tuple[list[Action], list[str]]:
     """Return (actions, notes) for a single malware family folder."""
     actions: list[Action] = []
     notes: list[str] = []
 
-    # Find an existing IOC folder (any casing) if present.
-    ioc_dir: Path | None = None
-    for child in family_dir.iterdir():
-        if child.is_dir() and IOC_DIR_RE.match(child.name):
-            ioc_dir = child
-            break
+    ioc_readmes = find_ioc_readmes(family_dir)
 
-    # 1. Normalize IOC folder name to the canonical "IOCs".
-    if ioc_dir is not None and ioc_dir.name != CANONICAL_IOC_DIR:
-        canonical = family_dir / CANONICAL_IOC_DIR
-        if canonical.exists():
+    if not ioc_readmes:
+        # Distinguish "truly no IOCs" from "IOCs live in data files, not a
+        # README" so the note is not misleading.
+        has_data_file = any(
+            p.is_file() and p.suffix.lower() in {".txt", ".csv", ".json"}
+            and p.name.lower() != "requirements.txt"
+            for p in family_dir.rglob("*")
+        )
+        if has_data_file:
             notes.append(
-                f"conflict: both '{ioc_dir.name}' and '{CANONICAL_IOC_DIR}' exist; "
-                f"skipping rename to avoid clobbering"
+                "no IOC README to move; IOC data is in data files (left untouched)"
             )
         else:
-            actions.append(Action("rename", ioc_dir, canonical))
-            ioc_dir = canonical  # subsequent moves target the canonical name
+            notes.append("no README with IOC data found (nothing to standardize)")
+        return actions, notes
 
-    # 2. Move root-level date folders into the IOCs folder.
-    date_dirs = [
-        c for c in family_dir.iterdir()
-        if c.is_dir() and DATE_DIR_RE.match(c.name)
-    ]
-    if date_dirs:
-        target_ioc = ioc_dir if ioc_dir is not None else (family_dir / CANONICAL_IOC_DIR)
-        for d in date_dirs:
-            dst = target_ioc / d.name
-            if dst.exists():
-                notes.append(f"conflict: {dst.name} already exists under IOCs; skipping")
-                continue
-            actions.append(Action("move", d, dst))
-
-    # 3. Report families with no discernible IOC data.
-    if ioc_dir is None and not date_dirs:
-        has_data_hint = any(
-            c.is_dir() and c.name.lower() not in AUX_DIRS
-            for c in family_dir.iterdir()
-        )
-        if not has_data_hint:
-            notes.append("no IOC folder and no date folders found (no IOC data)")
+    for readme in ioc_readmes:
+        dst = ioc_target_for(readme, family_dir)
+        if dst == readme:
+            continue  # already correctly placed under IOCs/
+        if dst.exists():
+            rel = dst.relative_to(family_dir.parent)
+            notes.append(f"conflict: {rel} already exists; skipping")
+            continue
+        actions.append(Action(readme, dst))
 
     return actions, notes
 
@@ -119,7 +153,7 @@ def main() -> int:
     parser.add_argument(
         "--apply",
         action="store_true",
-        help="Actually perform the renames/moves (default is a dry run).",
+        help="Actually perform the README moves (default is a dry run).",
     )
     parser.add_argument(
         "--root",
@@ -138,7 +172,7 @@ def main() -> int:
     print(f"Scanning: {root}\n")
 
     for family_dir in sorted(p for p in root.iterdir() if p.is_dir()):
-        actions, notes = plan_family(family_dir, root)
+        actions, notes = plan_family(family_dir)
         if actions or notes:
             print(f"=== {family_dir.name} ===")
             for a in actions:
