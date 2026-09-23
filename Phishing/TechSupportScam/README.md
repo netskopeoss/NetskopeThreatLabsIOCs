@@ -4,7 +4,7 @@ Tech support scam campaign abusing DigitalOcean and StackPath CDN - using Window
 [Details](https://www.netskope.com/blog/tech-support-scam-pivots-from-digitalocean-to-stackpath-cdn)
 
 Fake security-alert browser locker delivered via Google ads - a mousemove gate decrypts a hidden C2 and an OS-tailored locker (fake Microsoft Defender on Windows, fake Apple alert on macOS) inside a decoy storefront
-[Details](https://threatlabs.netskope.com/blog/2026/09/a-fake-security-locker-delivered-by-google-ads)
+[Details](https://www.netskope.com/blog/a-fake-security-locker-delivered-by-google-ads)
 
 
 ### IOCs
