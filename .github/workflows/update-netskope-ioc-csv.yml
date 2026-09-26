@@ -1,0 +1,63 @@
+name: Update Netskope IOC CSV
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Malware/**"
+      - "Phishing/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: update-netskope-ioc-csv
+  cancel-in-progress: true
+
+jobs:
+  update-csv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run parser tests
+        run: python3 -m unittest -v test_parse_netskope_iocs.py
+
+      - name: Update IOC CSV
+        run: python3 parse_netskope_iocs.py
+
+      - name: Detect CSV changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- netskope_iocs.csv)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "IOC CSV is already current."
+          fi
+
+      - name: Create pull request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/update-netskope-ioc-csv
+          delete-branch: true
+          add-paths: netskope_iocs.csv
+          commit-message: "chore: update Netskope IOC CSV"
+          title: "chore: update Netskope IOC CSV"
+          body: |
+            This PR was opened automatically after changes under `Malware/**`
+            or `Phishing/**`.
+
+            It regenerates `netskope_iocs.csv` from canonical `IOCs/README.md`
+            files. Existing indicators retain their original date, new indicators
+            receive the workflow execution date, and removed indicators are dropped.
